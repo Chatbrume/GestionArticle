@@ -4,7 +4,7 @@ import fr.ensup.gestionarticle.domaine.Article;
 
 import java.util.List;
 
-public class ArticleDaojpa implements IDao {
+public class ArticleDaoJpa implements IDao {
     @Override
     public Article getById(int id) {
         System.out.println("DAO JPA: r�cup�ration d article id=" + id);
