@@ -1,53 +1,51 @@
 package fr.ensup.gestionarticle.service;
 
 import fr.ensup.gestionarticle.dao.ArticleDao;
+import fr.ensup.gestionarticle.dao.IDao;
 import fr.ensup.gestionarticle.domaine.Article;
 
 import java.util.List;
 
 public class ArticleService {
 
-    private ArticleDao articleDao;
+    private IDao iDao;
 
-    public ArticleService() {
+    public ArticleService(IDao iDao) {
         super();
-        this.articleDao = new ArticleDao();
+        this.iDao = iDao;
     }
 
     public Article recuperation(int id) {
-        System.out.println("SERVICE: récupération de l'article id=" + id);
+        System.out.println("SERVICE: récupération d'article' id=" + id);
 
-        Article articleRetour = articleDao.getById(id);
+        Article articleRetour = iDao.getById(id);
         return articleRetour;
     }
 
-    public void creer(Article article) {
-        System.out.println("SERVICE: création de l'article " + article.toString());
+    public void create(Article article) {
+        System.out.println("SERVICE: création d'article " + article.toString());
 
-        articleDao.create(article);
+        iDao.create(article);
     }
 
-    public Article mettreAJour(Article article) {
-        System.out.println("SERVICE: mise à jour de l'article " + article.toString());
+    public Article update(Article article) {
+        System.out.println("SERVICE: mise à jour d'article " + article.toString());
 
-        Article articleRetour = articleDao.update(article);
+        Article articleRetour = iDao.update(article);
         return articleRetour;
     }
 
-    public void supprimer(Article compte) {
-        System.out.println("SERVICE: suppression de l'article " + compte.toString());
+    public void delete(Article article) {
+        System.out.println("SERVICE: suppression d'article' " + article.toString());
 
-        articleDao.delete(compte);
+        iDao.delete(article);
     }
 
-    public List<Article> recuperationListe() {
+    public List<Article> getAll() {
         System.out.println("SERVICE: récupération de tous les articles");
 
-        List<Article> articleListeRetour = articleDao.getAll();
-        return articleListeRetour;
+        List<Article> articlesListeRetour = iDao.getAll();
+        return articlesListeRetour;
     }
 
-    public void comparaison(Article article1, Article article2) {
-        System.out.println("SERVICE: comparaison entre deux articles");
-    }
 }

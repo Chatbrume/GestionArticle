@@ -4,7 +4,7 @@ import fr.ensup.gestionarticle.domaine.Article;
 
 import java.util.List;
 
-public class ArticleDao {
+public class ArticleDao implements IDao {
 
     public Article getById(int id) {
         System.out.println("DAO: récupération de l'article id=" + id);
@@ -16,6 +16,7 @@ public class ArticleDao {
     }
 
     public void create(Article article) {
+
         System.out.println("DAO: création de l'article " + article.toString());
     }
 
