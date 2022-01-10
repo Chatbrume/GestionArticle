@@ -10,6 +10,11 @@ public class ArticleService {
 
     private IDao iDao;
 
+    public ArticleService() {
+        super();
+        this.iDao = null;
+    }
+
     public ArticleService(IDao iDao) {
         super();
         this.iDao = iDao;
@@ -48,4 +53,19 @@ public class ArticleService {
         return articlesListeRetour;
     }
 
+    public IDao getiDao() {
+        return iDao;
+    }
+
+    public void setiDao(IDao iDao) {
+        this.iDao = iDao;
+    }
+
+    public void initialisation() {
+        System.out.println("SERVICE: creation spring");
+    }
+
+    public void destruction() {
+        System.out.println("SERVICE: destruction spring");
+    }
 }

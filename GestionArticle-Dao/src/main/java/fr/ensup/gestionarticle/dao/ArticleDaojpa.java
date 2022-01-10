@@ -37,4 +37,14 @@ public class ArticleDaojpa implements IDao {
         System.out.println("DAO JPA: r�cup�ration de tous les articles");
         return null;
     }
+
+    @Override
+    public void initialisation() {
+        System.out.println("DAO JPA: creation spring");
+    }
+
+    @Override
+    public void destruction() {
+        System.out.println("DAO JPA: destruction spring");
+    }
 }

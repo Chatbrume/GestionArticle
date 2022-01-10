@@ -33,4 +33,14 @@ public class ArticleDao implements IDao {
         System.out.println("DAO: récupération de tous les articles");
         return null;
     }
+
+    @Override
+    public void initialisation() {
+        System.out.println("DAO: creation spring");
+    }
+
+    @Override
+    public void destruction() {
+        System.out.println("DAO: destruction spring");
+    }
 }

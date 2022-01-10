@@ -13,5 +13,9 @@ public interface IDao {
 
     public Article update(Article article);
 
-    public List<Article> getAll() ;
+    public List<Article> getAll();
+
+    public void initialisation();
+
+    public void destruction();
 }
