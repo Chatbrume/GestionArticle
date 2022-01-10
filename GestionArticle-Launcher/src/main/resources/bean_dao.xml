@@ -8,9 +8,4 @@
 
     <bean id="articleDao" class="fr.ensup.gestionarticle.dao.ArticleDao" init-method="initialisation" destroy-method="destruction">
     </bean>
-
-    <bean id="articleService" class="fr.ensup.gestionarticle.service.ArticleService" init-method="initialisation" destroy-method="destruction">
-        <property name="iDao" ref="articleDao"></property>
-    </bean>
-
 </beans>
