@@ -1,6 +1,7 @@
 package fr.ensup.gestionarticle.launcher;
 
-import fr.ensup.gestionarticle.container.GestionObject;
+import fr.ensup.gestionarticle.container.GestionDao;
+import fr.ensup.gestionarticle.container.GestionService;
 import fr.ensup.gestionarticle.domaine.Article;
 import fr.ensup.gestionarticle.service.ArticleService;
 import org.springframework.context.ApplicationContext;
@@ -9,7 +10,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class Launcher {
     public static void main(String[] args) {
         // 1. Chargement du conteneur en 4.0.0 Spring
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(GestionObject.class);
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(GestionDao.class, GestionService.class);
 
         // 2. Recuperation d'un bean du conteneur
         ArticleService articleService = (ArticleService) applicationContext.getBean("articleService");
