@@ -8,6 +8,13 @@ public class Article {
 
     public Article() {}
 
+    public Article(int id, String name, String date, String author) {
+        this.id = id;
+        this.name = name;
+        this.date = date;
+        this.author = author;
+    }
+
     public Article(String name, String date, String author) {
         this.id = null;
         this.name = name;
