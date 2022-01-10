@@ -11,6 +11,7 @@
 
     <groupId>fr.ensup.gestionarticle.lancher</groupId>
     <artifactId>GestionArticle-Launcher</artifactId>
+
     <dependencies>
         <dependency>
             <groupId>fr.ensup.gestionarticle.domaine</groupId>
@@ -31,4 +32,41 @@
         <maven.compiler.target>15</maven.compiler.target>
     </properties>
 
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>fr.ensup.gestionarticle.launcher.Launcher</mainClass>
+                        </manifest>
+                    </archive>
+                    <finalName>GestionArticle.jar</finalName>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
