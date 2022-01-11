@@ -23,5 +23,8 @@ public class Launcher {
         } else {
             System.out.println("LAUNCHER: Récuperation de l'article échouée");
         }
+
+        //4. Destruction des objets
+        applicationContext.close();
     }
 }
