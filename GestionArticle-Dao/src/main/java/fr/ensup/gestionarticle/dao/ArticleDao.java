@@ -14,6 +14,7 @@ public class ArticleDao implements IDao
 
     public Article getById(int id) {
         LOGGER.info("récupération de l'article id=" + id);
+        if( cn == null ) initialisation();
 
         Statement st = null;
         ResultSet rs = null;
@@ -45,30 +46,23 @@ public class ArticleDao implements IDao
 
     public void create(Article article) {
         LOGGER.info("création de l'article " + article.toString());
+        if( cn == null ) initialisation();
 
-        // Information d'acc�s � la base de donn�es
         PreparedStatement pstmt = null;
-        ResultSet rs = null;
 
         try {
-            // Etape 3 : Cr�ation d'un statement
             pstmt = cn.prepareStatement("INSERT INTO Article (name, date, author) VALUES ( ?, ?, ? )");
             pstmt.setString(1, article.getName());
             pstmt.setString(2, article.getDate());
             pstmt.setString(3, article.getAuthor());
 
-            // Etape 4 : ex�cution requ�te
             pstmt.execute();
-
-            // Si r�cup donn�es alors �tapes 5 (parcours Resultset)
 
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         } finally {
             try {
-                // Etape 6 : lib�rer ressources de la m�moire.
-                rs.close();
-                pstmt.close();
+                if( pstmt != null ) pstmt.close();
             } catch (SQLException e) {
                 LOGGER.error(e.getMessage());
             }
@@ -92,11 +86,10 @@ public class ArticleDao implements IDao
     @Override
     public void initialisation()
     {
-        LOGGER.info("creation spring");
         try {
-            String url = "mysql-database:3306/gestionarticle?serverTimezone=UTC";
-            String login = "user";
-            String passwd = "test";
+            String url = "jdbc:mysql://@localhost:3306/gestionarticle?serverTimezone=UTC";
+            String login = "root";
+            String passwd = "";
 
             Class.forName("com.mysql.cj.jdbc.Driver");
             cn = DriverManager.getConnection(url, login, passwd);

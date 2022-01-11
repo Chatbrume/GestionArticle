@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Launcher {
-    private static final Logger LOGGER = LogManager.getLogger(Launcher.class.getName());
+    public static final Logger LOGGER = LogManager.getLogger(Launcher.class.getName());
 
     public static void main(String[] args) {
         // 1. Chargement du conteneur en 4.0.0 Spring
@@ -19,10 +19,10 @@ public class Launcher {
         ArticleService articleService = (ArticleService) applicationContext.getBean("articleService");
 
         // 3. Manipulation du bean avec injection de dependances
-        Article article1 = new Article(2, "test", "10/01/2020", "test");
+        Article article1 = new Article("test", "10/01/2020", "test");
         articleService.create(article1);
 
-        Article article2 = articleService.recuperation(2);
+        Article article2 = articleService.recuperation(1);
         if (article2 != null) {
             LOGGER.info("Récuperation de l'article réussie " + article2.toString());
         } else {
