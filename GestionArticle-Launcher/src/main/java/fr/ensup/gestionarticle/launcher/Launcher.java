@@ -1,6 +1,5 @@
 package fr.ensup.gestionarticle.launcher;
 
-import fr.ensup.gestionarticle.container.GestionDao;
 import fr.ensup.gestionarticle.container.GestionService;
 import fr.ensup.gestionarticle.domaine.Article;
 import fr.ensup.gestionarticle.service.ArticleService;
@@ -25,5 +24,8 @@ public class Launcher {
         } else {
             System.out.println("LAUNCHER: Récuperation de l'article échouée");
         }
+
+        //4. Destruction des objets
+        ((AnnotationConfigApplicationContext)applicationContext).close();
     }
 }
