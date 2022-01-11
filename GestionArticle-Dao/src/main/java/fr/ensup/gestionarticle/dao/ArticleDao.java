@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleDao implements IDao
@@ -46,6 +47,7 @@ public class ArticleDao implements IDao
 
     public void create(Article article) {
         LOGGER.info("création de l'article " + article.toString());
+        if( article == null ) return;
         if( cn == null ) initialisation();
 
         PreparedStatement pstmt = null;
@@ -71,16 +73,100 @@ public class ArticleDao implements IDao
 
     public Article update(Article article) {
         LOGGER.info("mise à jour de l'article " + article.toString());
+        if( article == null ) return null;
+        if( cn == null ) initialisation();
+
+        Article prevArticle = getById(article.getId());
+        boolean nameChange = ! stringAreEquals(article.getName(), prevArticle.getName());
+        boolean dateChange = ! stringAreEquals(article.getDate(), prevArticle.getDate());
+        boolean authorChange = ! stringAreEquals(article.getAuthor(), prevArticle.getAuthor());
+
+        String question = "";
+        if( ! stringAreEquals(article.getName(), prevArticle.getName()) )
+            question += "name='" + article.getName() + "'";
+        if( ! stringAreEquals(article.getDate(), prevArticle.getDate()) )
+            question += (question.equals("") ? "" : ", ") + "date='" + article.getDate() + "'";
+        if( ! stringAreEquals(article.getAuthor(), prevArticle.getAuthor()) )
+            question += (question.equals("") ? "" : ", ") + "author='" + article.getAuthor() + "'";
+
+        if( question.equals("") ) return null;
+
+        Statement st = null;
+        try {
+            st = cn.createStatement();
+            st.executeQuery("UPDATE article SET "+question+" WHERE id="+article.getId());
+            return article;
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        } finally {
+            try {
+                if( st != null ) st.close();
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage());
+            }
+        }
         return null;
     }
 
     public void delete(Article article) {
         LOGGER.info("suppression de l'article " + article.toString());
+        if( article == null || article.getId() == null ) return;
+        if( cn == null ) initialisation();
+
+        Statement st = null;
+        try {
+            st = cn.createStatement();
+            st.executeQuery("DELETE FROM article WHERE id="+article.getId());
+
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        } finally {
+            try {
+                if( st != null ) st.close();
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage());
+            }
+        }
     }
 
     public List<Article> getAll() {
         LOGGER.info("récupération de tous les articles");
-        return null;
+        if( cn == null ) initialisation();
+
+        List<Article> articles = new ArrayList<>();
+        Statement st = null;
+        ResultSet rs = null;
+
+        try {
+            st = cn.createStatement();
+            String sql = "SELECT * FROM article";
+
+            rs = st.executeQuery(sql);
+
+            while(rs.next()) {
+                articles.add(new Article(rs.getInt("id"), rs.getString("name"), rs.getString("date"),
+                        rs.getString("author")));
+            }
+        } catch (SQLException sqle) {
+            LOGGER.error(sqle.getMessage());
+        } finally {
+            try {
+                //Liberer ressources de la memoire.
+                if(rs != null) rs.close();
+                if(st != null) st.close();
+            } catch (SQLException sqle) {
+                LOGGER.error(sqle.getMessage());
+            }
+        }
+
+        return articles;
+    }
+
+    private boolean stringAreEquals(String st1, String st2)
+    {
+        if( st1 == null && st2 == null || (st1 != null && st2 != null && st1.equals(st2)) )
+            return true;
+        return false;
     }
 
     @Override
@@ -106,8 +192,7 @@ public class ArticleDao implements IDao
     public void destruction() {
         LOGGER.info("DAO: destruction spring");
         try {
-            if( cn != null )
-                cn.close();
+            if( cn != null ) cn.close();
         } catch (SQLException sqle) {
             LOGGER.error(sqle.getMessage());
         } finally {
