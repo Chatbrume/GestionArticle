@@ -4,17 +4,24 @@ import com.zaxxer.hikari.HikariDataSource;
 import fr.ensup.gestionarticle.dao.ArticleDao;
 import fr.ensup.gestionarticle.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.*;
+import org.springframework.core.env.Environment;
 
+import java.beans.BeanProperty;
+
+@PropertySource({"classpath:datasource.properties"})
 public class GestionObject
 {
+    @Autowired
+    Environment env;
+
     @Bean()
     public HikariDataSource dataSourceSk() {
         HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setJdbcUrl("jdbc:mysql://@localhost:3306/gestionarticle?serverTimezone=UTC");
-        dataSource.setUsername("root");
-        dataSource.setPassword("");
+        dataSource.setDriverClassName(env.getProperty("database.sk.driver"));
+        dataSource.setJdbcUrl(env.getProperty("database.sk.url"));
+        dataSource.setUsername(env.getProperty("database.sk.username"));
+        dataSource.setPassword(env.getProperty("database.sk.password"));
         return dataSource;
     }
 
