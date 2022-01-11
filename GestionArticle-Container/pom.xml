@@ -19,6 +19,11 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>4.0.3</version>
+        </dependency>
+        <dependency>
             <groupId>fr.ensup.gestionarticle.service</groupId>
             <artifactId>GestionArticle-Service</artifactId>
             <version>1.0-SNAPSHOT</version>
