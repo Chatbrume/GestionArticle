@@ -15,14 +15,35 @@ public class ArticleDao implements IDao
     public Article getById(int id) {
         LOGGER.info("récupération de l'article id=" + id);
 
-        if (id == 2) {
-            return new Article(2, "test", "10/01/2020", "Test");
+        Statement st = null;
+        ResultSet rs = null;
+
+        try {
+            st = cn.createStatement();
+            String sql = "SELECT * FROM article WHERE id=" + id;
+
+            rs = st.executeQuery(sql);
+
+            while(rs.next()) {
+                return new Article(rs.getInt("id"), rs.getString("name"), rs.getString("date"),
+                        rs.getString("author"));
+            }
+        } catch (SQLException sqle) {
+            LOGGER.error(sqle.getMessage());
+        } finally {
+            try {
+                //Liberer ressources de la memoire.
+                rs.close();
+                st.close();
+            } catch (SQLException sqle) {
+                LOGGER.error(sqle.getMessage());
+            }
         }
+
         return null;
     }
 
     public void create(Article article) {
-
         LOGGER.info("création de l'article " + article.toString());
 
         // Information d'acc�s � la base de donn�es
@@ -77,10 +98,7 @@ public class ArticleDao implements IDao
             String login = "user";
             String passwd = "test";
 
-            // Etape 1 : Chargement du driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-
-            // Etape 2 : r�cup�ration de la connexion
             cn = DriverManager.getConnection(url, login, passwd);
         } catch (ClassNotFoundException cnfe) {
             LOGGER.error(cnfe.getMessage());
@@ -95,7 +113,8 @@ public class ArticleDao implements IDao
     public void destruction() {
         LOGGER.info("DAO: destruction spring");
         try {
-            cn.close();
+            if( cn != null )
+                cn.close();
         } catch (SQLException sqle) {
             LOGGER.error(sqle.getMessage());
         } finally {
