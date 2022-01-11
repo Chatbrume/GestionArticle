@@ -1,13 +1,17 @@
 package fr.ensup.gestionarticle.dao;
 
 import fr.ensup.gestionarticle.domaine.Article;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
 public class ArticleDaoJpa implements IDao {
+    private static final Logger LOGGER = LogManager.getLogger(ArticleDaoJpa.class.getName());
+
     @Override
     public Article getById(int id) {
-        System.out.println("DAO JPA: r�cup�ration d article id=" + id);
+        LOGGER.info("recuperation d article id=" + id);
 
         if (id == 2) {
             return new Article(2, "Sciences", "10/01/2022", "Amélie Nioche");
@@ -17,34 +21,33 @@ public class ArticleDaoJpa implements IDao {
 
     @Override
     public void create(Article article) {
-
-        System.out.println("DAO JPA: cr�ation article " + article.toString());
+        LOGGER.info("creation article " + article.toString());
     }
 
     @Override
     public Article update(Article article) {
-        System.out.println("DAO JPA: mise � jour d'article' " + article.toString());
+        LOGGER.info("mise a jour d'article' " + article.toString());
         return null;
     }
 
     @Override
     public void delete(Article article) {
-        System.out.println("DAO JPA: suppression d'article' " + article.toString());
+        LOGGER.info("suppression d'article' " + article.toString());
     }
 
     @Override
     public List<Article> getAll() {
-        System.out.println("DAO JPA: r�cup�ration de tous les articles");
+        LOGGER.info("recuperation de tous les articles");
         return null;
     }
 
     @Override
     public void initialisation() {
-        System.out.println("DAO JPA: creation spring");
+        LOGGER.info("creation spring");
     }
 
     @Override
     public void destruction() {
-        System.out.println("DAO JPA: destruction spring");
+        LOGGER.info("destruction spring");
     }
 }

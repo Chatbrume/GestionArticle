@@ -3,10 +3,14 @@ package fr.ensup.gestionarticle.launcher;
 import fr.ensup.gestionarticle.container.GestionObject;
 import fr.ensup.gestionarticle.domaine.Article;
 import fr.ensup.gestionarticle.service.ArticleService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Launcher {
+    private static final Logger LOGGER = LogManager.getLogger(Launcher.class.getName());
+
     public static void main(String[] args) {
         // 1. Chargement du conteneur en 4.0.0 Spring
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(GestionObject.class);
@@ -20,9 +24,9 @@ public class Launcher {
 
         Article article2 = articleService.recuperation(2);
         if (article2 != null) {
-            System.out.println("LAUNCHER: Récuperation de l'article réussie " + article2.toString());
+            LOGGER.info("Récuperation de l'article réussie " + article2.toString());
         } else {
-            System.out.println("LAUNCHER: Récuperation de l'article échouée");
+            LOGGER.info("Récuperation de l'article échouée");
         }
 
         //4. Destruction des objets

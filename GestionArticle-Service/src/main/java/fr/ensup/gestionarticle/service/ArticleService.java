@@ -3,10 +3,13 @@ package fr.ensup.gestionarticle.service;
 import fr.ensup.gestionarticle.dao.ArticleDao;
 import fr.ensup.gestionarticle.dao.IDao;
 import fr.ensup.gestionarticle.domaine.Article;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
 public class ArticleService {
+    private static final Logger LOGGER = LogManager.getLogger(ArticleService.class.getName());
 
     private IDao iDao;
 
@@ -21,33 +24,33 @@ public class ArticleService {
     }
 
     public Article recuperation(int id) {
-        System.out.println("SERVICE: récupération d'article' id=" + id);
+        LOGGER.info("récupération d'article' id=" + id);
 
         Article articleRetour = iDao.getById(id);
         return articleRetour;
     }
 
     public void create(Article article) {
-        System.out.println("SERVICE: création d'article " + article.toString());
+        LOGGER.info("création d'article " + article.toString());
 
         iDao.create(article);
     }
 
     public Article update(Article article) {
-        System.out.println("SERVICE: mise à jour d'article " + article.toString());
+        LOGGER.info("mise à jour d'article " + article.toString());
 
         Article articleRetour = iDao.update(article);
         return articleRetour;
     }
 
     public void delete(Article article) {
-        System.out.println("SERVICE: suppression d'article' " + article.toString());
+        LOGGER.info("suppression d'article' " + article.toString());
 
         iDao.delete(article);
     }
 
     public List<Article> getAll() {
-        System.out.println("SERVICE: récupération de tous les articles");
+        LOGGER.info("récupération de tous les articles");
 
         List<Article> articlesListeRetour = iDao.getAll();
         return articlesListeRetour;
@@ -62,10 +65,10 @@ public class ArticleService {
     }
 
     public void initialisation() {
-        System.out.println("SERVICE: creation spring");
+        LOGGER.info("creation spring");
     }
 
     public void destruction() {
-        System.out.println("SERVICE: destruction spring");
+        LOGGER.info("destruction spring");
     }
 }
