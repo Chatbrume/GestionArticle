@@ -92,14 +92,17 @@ public class ArticleDao implements IDao
         if( question.equals("") ) return null;
 
         Statement st = null;
+        ResultSet rs = null;
         try {
             st = cn.createStatement();
-            st.executeQuery("UPDATE article SET "+question+" WHERE id="+article.getId());
+            st.execute("UPDATE article SET "+question+" WHERE id="+article.getId());
+
             return article;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         } finally {
             try {
+                if( rs != null ) rs.close();
                 if( st != null ) st.close();
             } catch (SQLException e) {
                 LOGGER.error(e.getMessage());

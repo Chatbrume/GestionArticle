@@ -19,14 +19,21 @@ public class Launcher {
         ArticleService articleService = (ArticleService) applicationContext.getBean("articleService");
 
         // 3. Manipulation du bean avec injection de dependances
-        Article article1 = new Article("test", "10/01/2020", "test");
-        articleService.create(article1);
+        //Article article1 = new Article("test", "10/01/2020", "test");
+        //articleService.create(article1);
 
         Article article2 = articleService.recuperation(1);
         if (article2 != null) {
             LOGGER.info("Récuperation de l'article réussie " + article2.toString());
         } else {
             LOGGER.info("Récuperation de l'article échouée");
+        }
+
+        article2.setAuthor(article2.getAuthor().equals("Moi") ? "Toi" : "Moi");
+        articleService.update(article2);
+
+        for (Article articleCourant : articleService.getAll()) {
+            System.out.println(articleCourant.toString());
         }
 
         //4. Destruction des objets
