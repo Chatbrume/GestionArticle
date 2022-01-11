@@ -3,8 +3,8 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="articleService" class="fr.ensup.gestionarticle.service.ArticleService" init-method="initialisation" destroy-method="destruction">
-        <property name="iDao" ref="articleDao"></property>
+    <bean id="articleService" class="fr.ensup.gestionarticle.service.ArticleService" init-method="initialisation" destroy-method="destruction" autowire="byName">
+        <!--property name="iDao" ref="articleDao"></property-->
     </bean>
 
 </beans>
