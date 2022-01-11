@@ -4,9 +4,7 @@ import fr.ensup.gestionarticle.domaine.Article;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 public class ArticleDao implements IDao
@@ -26,6 +24,34 @@ public class ArticleDao implements IDao
     public void create(Article article) {
 
         LOGGER.info("création de l'article " + article.toString());
+
+        // Information d'acc�s � la base de donn�es
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            // Etape 3 : Cr�ation d'un statement
+            pstmt = cn.prepareStatement("INSERT INTO Article (name, date, author) VALUES ( ?, ?, ? )");
+            pstmt.setString(1, article.getName());
+            pstmt.setString(2, article.getDate());
+            pstmt.setString(3, article.getAuthor());
+
+            // Etape 4 : ex�cution requ�te
+            pstmt.execute();
+
+            // Si r�cup donn�es alors �tapes 5 (parcours Resultset)
+
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        } finally {
+            try {
+                // Etape 6 : lib�rer ressources de la m�moire.
+                rs.close();
+                pstmt.close();
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage());
+            }
+        }
     }
 
     public Article update(Article article) {
