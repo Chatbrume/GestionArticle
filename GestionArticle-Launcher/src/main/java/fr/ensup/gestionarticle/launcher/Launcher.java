@@ -10,7 +10,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class Launcher {
     public static void main(String[] args) {
         // 1. Chargement du conteneur en 4.0.0 Spring
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(GestionDao.class, GestionService.class);
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(GestionService.class);
 
         // 2. Recuperation d'un bean du conteneur
         ArticleService articleService = (ArticleService) applicationContext.getBean("articleService");
