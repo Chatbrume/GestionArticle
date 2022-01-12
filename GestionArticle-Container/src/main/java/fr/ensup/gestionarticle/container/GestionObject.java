@@ -1,8 +1,6 @@
 package fr.ensup.gestionarticle.container;
 
 import com.zaxxer.hikari.HikariDataSource;
-import fr.ensup.gestionarticle.dao.ArticleDao;
-import fr.ensup.gestionarticle.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
