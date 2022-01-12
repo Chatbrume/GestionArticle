@@ -13,6 +13,11 @@
     <artifactId>GestionArticle-Dao</artifactId>
     <dependencies>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <dependency>
             <groupId>fr.ensup.gestionarticle.domaine</groupId>
             <artifactId>GestionArticle-Domaine</artifactId>
             <version>1.0-SNAPSHOT</version>

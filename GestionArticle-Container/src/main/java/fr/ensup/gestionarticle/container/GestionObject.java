@@ -6,6 +6,7 @@ import fr.ensup.gestionarticle.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.beans.BeanProperty;
 
@@ -25,9 +26,14 @@ public class GestionObject
         return dataSource;
     }
 
+    @Bean()
+    public JdbcTemplate jdbcTemplate() {
+        return new JdbcTemplate(dataSourceSk());
+    }
+
     @Bean(initMethod = "initialisation", destroyMethod = "destruction")
     public ArticleDao articleDao() {
-        return new ArticleDao(dataSourceSk());
+        return new ArticleDao(jdbcTemplate());
     }
 
     @Bean(initMethod = "initialisation", destroyMethod = "destruction")
