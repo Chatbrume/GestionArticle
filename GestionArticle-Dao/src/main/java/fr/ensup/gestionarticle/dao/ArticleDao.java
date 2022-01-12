@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.List;
 
 @Repository
@@ -31,11 +33,13 @@ public class ArticleDao implements IDao
     }
 
     @Override
+    @PostConstruct
     public void initialisation() {
         LOGGER.info("Initialisation");
     }
 
     @Override
+    @PreDestroy
     public void destruction() {
         LOGGER.info("Destruction");
     }

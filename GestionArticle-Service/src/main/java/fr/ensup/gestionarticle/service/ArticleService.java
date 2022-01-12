@@ -1,6 +1,5 @@
 package fr.ensup.gestionarticle.service;
 
-import fr.ensup.gestionarticle.dao.ArticleDao;
 import fr.ensup.gestionarticle.dao.IDao;
 import fr.ensup.gestionarticle.domaine.Article;
 import org.apache.logging.log4j.LogManager;
@@ -8,6 +7,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.List;
 
 @Service
@@ -69,10 +70,12 @@ public class ArticleService {
         this.iDao = iDao;
     }
 
+    @PostConstruct
     public void initialisation() {
         LOGGER.info("creation spring");
     }
 
+    @PreDestroy
     public void destruction() {
         LOGGER.info("destruction spring");
     }
