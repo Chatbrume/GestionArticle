@@ -5,12 +5,17 @@ import fr.ensup.gestionarticle.dao.IDao;
 import fr.ensup.gestionarticle.domaine.Article;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ArticleService {
+
     private static final Logger LOGGER = LogManager.getLogger(ArticleService.class.getName());
 
+    @Autowired
     private IDao iDao;
 
     public ArticleService() {
