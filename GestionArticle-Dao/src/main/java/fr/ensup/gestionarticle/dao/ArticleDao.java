@@ -3,20 +3,30 @@ package fr.ensup.gestionarticle.dao;
 import fr.ensup.gestionarticle.domaine.Article;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class ArticleDao implements IDao
 {
     private static final Logger LOGGER = LogManager.getLogger(ArticleDao.class.getName());
 
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    public ArticleDao() {}
     public ArticleDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public JdbcTemplate getJdbcTemplate() {
+        return jdbcTemplate;
+    }
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
