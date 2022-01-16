@@ -20,8 +20,6 @@ services:
       - SYS_NICE  # CAP_SYS_NICE handle error silently
     command: --default-authentication-plugin=mysql_native_password
     environment:
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=root
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=jdbc:mysql://localhost/gestionarticle
       - MYSQL_ALLOW_EMPTY_PASSWORD=true
