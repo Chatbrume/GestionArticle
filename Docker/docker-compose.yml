@@ -1,53 +1,23 @@
 version: '3.3'
 services:
-  docker-mysql:
-    image: mysql:8.0
-    container_name: docker-mysql
+  server:
+    image: chatbrume/gestion-article
     restart: always
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_DATABASE: gestionarticle
-      MYSQL_USER: user
-      MYSQL_PASSWORD: user
-      MYSQL_ROOT_PASSWORD: user
-      MYSQL_ROOT_HOST: '%'
-    networks:
-      - app-network
-  phpmyadmin:
-    container_name: phpmyadmin
-    image: phpmyadmin
-    restart: always
-    ports:
-      - "8081:80"
-    environment:
-      MYSQL_USER: user
-      MYSQL_PASSWORD: user
-      MYSQL_ROOT_PASSWORD: user
-      MYSQL_ROOT_HOST: '%'
-      PMA_HOST: docker-mysql
     depends_on:
-      - docker-mysql
-    networks:
-      - app-network
-  spring:
-    container_name: springapp
-    restart: always
-    build:
-      context: ..
-      dockerfile: Dockerfile
+      - db
     ports:
-      - "8080:8080"
+      - 8080:80
+    network_mode: 'host'
+
+  db:
+    image: mysql
+    restart: always
+    cap_add:
+      - SYS_NICE  # CAP_SYS_NICE handle error silently
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://docker-mysql:3306/gestionarticle?useSSL=false&allowPublicKeyRetrieval=true
-      SPRING_DATASOURCE_USERNAME: user
-      SPRING_DATASOURCE_PASSWORD: user
-      APP_PORT: 8080
-    networks:
-      - app-network
-    depends_on:
-      - docker-mysql
-networks:
-  app-network:
-    name: app-network
-    driver: bridge
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ALLOW_EMPTY_PASSWORD=${MYSQL_ALLOW_EMPTY_PASSWORD}
+    ports:
+      - 3306:3306
