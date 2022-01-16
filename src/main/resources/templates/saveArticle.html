@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Ajouter un article</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <header th:replace="fragments/header"></header>
+        <form method="POST" action="/article/save" th:object="${article}">
+            <div hidden>
+                <input name="id" path="id" type="number" th:value="${article.id}"/>
+            </div>
+            <div>
+                <label path="name">Name</label>
+                <input name="name" path="name" type="text" th:value="${article.name} == null ? '' : ${article.name}"/>
+            </div>
+            <div>
+                <label path="date">Date</label>
+                <input name="date" path="date" type="text" th:value="${article.date} == null ? '' : ${article.date}"/>
+            </div>
+            <div>
+                <label path="author">Author</label>
+                <input name="author" path="author" type="text" th:value="${article.author} == null ? '' : ${article.author}"/>
+            </div>
+            <div>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </body>
+</html>

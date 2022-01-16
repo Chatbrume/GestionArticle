@@ -1,0 +1,7 @@
+<header xmlns:th="http://www.thymeleaf.org">
+    <nav>
+        <a href="/article/all">Home</a>
+    </nav>
+    <a th:if="${previousUrl} != null" href="/previous"><- return</a>
+    <p th:if="${error}" th:text="${error}"/>
+</header>

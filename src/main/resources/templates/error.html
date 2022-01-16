@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title> Page d'error </title>
+        <meta charset="UTF-8">
+    </head>
+    <body style="background-color:#F5A9A9">
+        <header th:replace="fragments/header"></header>
+        <h1 style="font-family:Comic sans MS; font-size:8vw; color:#FF0000; text-align:center;">
+            Error <strong th:text="${code_error}"/>
+        </h1>
+        <h1 style="font-family:Comic sans MS; font-size:3vw; color:#FF0000; text-align:center;">
+            <!--<strong th:text="${name_error}"/>-->
+            <strong th:text="${signification_error}"/>
+        </h1>
+        <div th:if="${message_error} != null" style="margin-left: 50px;">
+            <h2 style="font-family:Comic sans MS; color:#8A0808">Message: <strong th:text="${message_error}"/></h2>
+        </div>
+    </body>
+</html>
