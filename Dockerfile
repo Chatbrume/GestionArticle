@@ -6,5 +6,5 @@ RUN mvn clean install package
 FROM openjdk:11
 WORKDIR ./data/GestionArticle
 COPY ./target/GestionArticle-1.0-SNAPSHOT.jar ./GestionArticle-1.0-SNAPSHOT.jar
-EXPOSE 80
+EXPOSE 8080
 CMD ["java", "-jar", "GestionArticle-1.0-SNAPSHOT.jar"]
