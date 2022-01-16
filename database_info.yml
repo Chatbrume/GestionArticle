@@ -1,4 +1,4 @@
 MYSQL_USER: spring
 MYSQL_PASSWORD: spring
 MYSQL_DATABASE: jdbc:mysql://localhost/gestionarticle
-MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+MYSQL_ALLOW_EMPTY_PASSWORD: true
