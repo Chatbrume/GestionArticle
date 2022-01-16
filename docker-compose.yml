@@ -1,31 +1,26 @@
 version: '3.1'
 services:
   server:
-    container_name: gestionarticle
+    container_name: gestionarticle:latest
     restart: always
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
     depends_on:
       - db
     ports:
-      - 8080:80
-    networks:
-      - app-network
+      - 80:8080
 
   db:
-    image: mysql
+    image: mysql:latest
     restart: always
-    cap_add:
-      - SYS_NICE  # CAP_SYS_NICE handle error silently
-    command: --default-authentication-plugin=mysql_native_password
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=jdbc:mysql://localhost/gestionarticle
-      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: 'gestionarticle'
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: ''
     ports:
       - 3306:3306
+    volumes:
+      - my-db:/var/lib/mysql
 
-networks:
-  app-network:
-    driver: bridge
+volumes:
+  my-db: null
