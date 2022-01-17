@@ -16,9 +16,7 @@ public class AppRestController
     public static String addUrl(String actualPath)
     {
         String last = null;
-
-        //HOME > CREATE > HOME > RETURN
-
+        
         if( ! previousUrls.isEmpty()  && previousUrls.getLast().equals(actualPath) )
             previousUrls.removeLast();
 
